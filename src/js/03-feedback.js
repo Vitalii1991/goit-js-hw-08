@@ -6,13 +6,13 @@ formEl.addEventListener('input', debounce(onInputValue, 1000));
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 const inputLocalStorage = localStorage.getItem(LOCALSTORAGE_KEY);
 
-const settings = {
-  name: '',
-  message: '',
-};
-
 function onInputValue(e) {
   e.preventDefault();
+
+  const settings = {
+    name: '',
+    message: '',
+  };
 
   if (e.target.name === 'email') {
     settings.name = e.target.value;
