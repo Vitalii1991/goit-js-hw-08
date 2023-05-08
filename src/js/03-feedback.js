@@ -3,14 +3,27 @@ import { debounce, throttle } from 'lodash';
 const formEl = document.querySelector('.feedback-form');
 formEl.addEventListener('input', debounce(onInputValue, 1000));
 
+const LOCALSTORAGE_KEY = 'feedback-form-state';
+const inputLocalStorage = localStorage.getItem(LOCALSTORAGE_KEY);
+
+const settings = {
+  name: '',
+  message: '',
+};
+
 function onInputValue(e) {
+  e.preventDefault();
+
   if (e.target.name === 'email') {
-    console.log('Input name: ', e.target.value);
+    settings.name = e.target.value;
+    console.log('Input name: ', settings.name);
   }
 
   if (e.target.name === 'message') {
-    console.log('Input message: ', e.target.value);
+    settings.message = e.target.value;
+    console.log('Input message: ', settings.message);
   }
-}
 
-// const inputLocalStorage = localStorage.getItem('feedback-form-state');
+  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(settings));
+  console.log(inputLocalStorage);
+}
