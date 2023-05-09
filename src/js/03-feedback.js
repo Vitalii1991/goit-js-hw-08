@@ -11,6 +11,7 @@ refs.form.addEventListener('submit', onFormSubmit);
 
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 let formData = {};
+refreshPage();
 
 function onInputData() {
   formData = {
@@ -25,12 +26,30 @@ function onFormSubmit(e) {
   e.preventDefault();
 
   const { email, message } = e.currentTarget.elements;
-  console.log({ email: email.value.trim(), message: message.value.trim() });
+
+  if (email.value === '' || message.value === '') {
+    alert('Все поля должны быть заполнены!');
+  }
+
+  const valueForm = {
+    email: email.value.trim(),
+    message: message.value.trim(),
+  };
+  console.log(valueForm);
 
   if (localStorage.getItem(LOCALSTORAGE_KEY)) {
     localStorage.removeItem(LOCALSTORAGE_KEY);
   }
 
-  e.currentTarget.reset();
+  refs.form.reset();
   formData = {};
+}
+
+function refreshPage() {
+  const localStorageValue = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+  if (localStorage.getItem(LOCALSTORAGE_KEY)) {
+    refs.input.value = localStorageValue.email;
+    refs.textarea.value = localStorageValue.message;
+  }
 }
