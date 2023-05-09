@@ -11,7 +11,7 @@ refs.form.addEventListener('submit', onFormSubmit);
 
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 let formData = {};
-refreshPage();
+reloadPage();
 
 function onInputData() {
   formData = {
@@ -45,7 +45,7 @@ function onFormSubmit(e) {
   formData = {};
 }
 
-function refreshPage() {
+function reloadPage() {
   const localStorageValue = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
   if (localStorage.getItem(LOCALSTORAGE_KEY)) {
