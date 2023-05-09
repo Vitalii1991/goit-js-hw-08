@@ -4,7 +4,7 @@ import { throttle } from 'lodash';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 const LOCALSTORAGE_KEY = 'videoplayer-current-time';
-const timeLocalStorage = localStorage.getItem(LOCALSTORAGE_KEY);
+const timeLocalStorage = Number(localStorage.getItem(LOCALSTORAGE_KEY));
 
 player.on('timeupdate', throttle(onPlay, 1000));
 
@@ -13,13 +13,4 @@ function onPlay(data) {
   localStorage.setItem(LOCALSTORAGE_KEY, currentTime);
 }
 
-player.setCurrentTime(timeLocalStorage).catch(function (error) {
-  switch (error.name) {
-    case 'RangeError':
-      break;
-    default:
-      break;
-  }
-});
-
-player.setVolume(0.5);
+player.setCurrentTime(timeLocalStorage || 0);
